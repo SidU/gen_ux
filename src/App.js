@@ -6,7 +6,7 @@ function App() {
   const [cardDescription, setCardDescription] = useState('');
   const [showAdaptiveCard, setShowAdaptiveCard] = useState(false);
 
-  const handleAction = (action) => {
+  const handleCardAction = (action) => {
     console.log(action);
     alert('You clicked ' + action.title + ' with data ' + JSON.stringify(action.data));
   };
@@ -30,7 +30,7 @@ function App() {
         <input type="submit" value="Submit" />
       </form>
       {showAdaptiveCard && (
-        <AdaptiveCardRenderer cardDescription={cardDescription} onExecuteAction={handleAction} />
+        <AdaptiveCardRenderer cardDescription={cardDescription} onExecuteAction={handleCardAction} />
       )}
     </div>
   );

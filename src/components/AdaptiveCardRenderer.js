@@ -6,14 +6,23 @@ function AdaptiveCardRenderer(props) {
   const { cardDescription, onExecuteAction } = props;
   const cardRef = useRef();
   const [cardData, setCardData] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
+
+    if (!cardDescription) {
+      return;
+    }
+
     const getCardData = async () => {
+      setIsLoading(true);
       const data = await generateAdaptiveCard(cardDescription);
       setCardData(data);
+      setIsLoading(false);
     };
 
     getCardData();
+    
   }, [cardDescription]);
 
   useEffect(() => {
@@ -45,7 +54,12 @@ function AdaptiveCardRenderer(props) {
     }
   }, [cardData, onExecuteAction]);
 
-  return <div ref={cardRef} />;
+  return (
+    <>
+      {isLoading && <div>Loading...</div>}
+      <div ref={cardRef} />
+    </>
+  );
 }
 
 export default AdaptiveCardRenderer;
