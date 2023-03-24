@@ -1,23 +1,37 @@
-import logo from './logo.svg';
+import React, { useState } from 'react';
 import './App.css';
+import AdaptiveCardRenderer from './components/AdaptiveCardRenderer';
 
 function App() {
+  const [cardDescription, setCardDescription] = useState('');
+  const [showAdaptiveCard, setShowAdaptiveCard] = useState(false);
+
+  const handleAction = (action) => {
+    console.log(action);
+    alert('You clicked ' + action.title + ' with data ' + JSON.stringify(action.data));
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    setShowAdaptiveCard(true);
+  };
+
+  const handleCardDescriptionChange = (event) => {
+    setCardDescription(event.target.value);
+  };
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <form onSubmit={handleSubmit}>
+        <label>
+          Enter Card Description:
+          <input type="text" value={cardDescription} onChange={handleCardDescriptionChange} />
+        </label>
+        <input type="submit" value="Submit" />
+      </form>
+      {showAdaptiveCard && (
+        <AdaptiveCardRenderer cardDescription={cardDescription} onExecuteAction={handleAction} />
+      )}
     </div>
   );
 }
