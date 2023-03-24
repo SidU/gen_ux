@@ -7,9 +7,12 @@ const generateAdaptiveCard = async (cardDescription, retries = 3) => {
 
   const prompt = `As an Adaptive Card Generator AI, I need to create an Adaptive Card to: <desc>${cardDescription}</desc>${
     retries > 0 && error ? ` An error occurred earlier: ${error.message}. Please retry.` : ''
-  }`;
+  }` + '\n\nAdaptive Card JSON:';
+
+  let cardData = null;
 
   try {
+
     const response = await openai_api.complete({
       engine: 'text-davinci-003',
       prompt: prompt,
@@ -20,12 +23,15 @@ const generateAdaptiveCard = async (cardDescription, retries = 3) => {
       presencePenalty: 0
     });
 
-    const cardData = JSON.parse(response.data.choices[0].text);
+    cardData = JSON.parse(response.data.choices[0].text);
     return cardData;
+
   } catch (err) {
+
     error = err;
     if (retries > 0) {
       console.error(error);
+      console.log(cardData);
       return generateAdaptiveCard(cardDescription, retries - 1);
     } else {
       throw error;
