@@ -39,3 +39,17 @@
     transform: rotate(360deg);
   }
 }
+
+.Memory {
+  text-align: left;
+}
+
+.appDescriptionInput {
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+.generatingLabel {
+  margin: 10px;
+  font-size: xx-large;
+}

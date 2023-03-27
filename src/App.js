@@ -39,7 +39,7 @@ function App() {
     setAppDescription(event.target.value);
   };
 
-  const { nextUI, currentStateUI, globalActions } = uiDescription || {};
+  const { nextUI, currentStateUI, globalActions, memory } = uiDescription || {};
 
   return (
     <div className="App">
@@ -47,7 +47,7 @@ function App() {
         <form onSubmit={handleGenerateAppSubmit}>
           <label>
             Enter app description:
-            <input type="text" value={appDescription} onChange={handleAppDescriptionChange} />
+            <input className='appDescriptionInput' type="text" value={appDescription} onChange={handleAppDescriptionChange} />
           </label>
           <input type="submit" value="Submit" />
         </form>
@@ -55,7 +55,7 @@ function App() {
   
       {uiDescription && appDescription && <h1>{appDescription} app - GPT</h1>}
 
-      {isLoading && <div>Generating...</div>}
+      {isLoading && <div className='generatingLabel'>Generating...</div>}
 
       {nextUI && (
         <div>
@@ -77,7 +77,14 @@ function App() {
           <AdaptiveCardRenderer cardData={globalActions} onExecuteAction={handleCardAction} />
         </div>
       )}
-    </div>
+
+      {memory && 
+        <div className='memory'>
+          <h2>Memory: </h2>
+          <pre>{JSON.stringify(memory, null, 2)}</pre>
+      </div>
+      }
+      </div>
   );
 }
 
