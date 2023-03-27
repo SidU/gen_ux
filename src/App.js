@@ -57,7 +57,7 @@ function App() {
         </form>
       </div>
   
-      {uiDescription && appDescription && <h1>{appDescription} app - GPT</h1>}
+      {uiDescription && appDescription && <h1>{appDescription} app - GPT ✨</h1>}
 
       {isLoading && <div className='generatingLabel'>✨ Generating, please wait...</div>}
 

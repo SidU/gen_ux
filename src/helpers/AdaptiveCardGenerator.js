@@ -1,5 +1,5 @@
 const openai = require('openai-api');
-const openai_api_key = process.env.OPENAI_API_KEY || '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';
+const openai_api_key = process.env.OPENAI_API_KEY;
 const openai_api = new openai(openai_api_key);
 
 const generateAdaptiveCard = async (cardDescription, retries = 3) => {
