@@ -66,3 +66,19 @@ pre {
 h2 {
   color: #6b01f8;
 }
+
+header > h1 {
+  margin-top: 10px;
+  margin-bottom: 5px;
+
+  background: -webkit-linear-gradient(left, #6b01f8 , #ff00ad);
+  background: -o-linear-gradient(right, #6b01f8, #ff00ad);
+  background: -moz-linear-gradient(right, #6b01f8,#ff00ad);
+  background: linear-gradient(to right, #6b01f8, #ff00ad);
+ -webkit-background-clip: text;
+ -webkit-text-fill-color: transparent;
+}
+
+header > p {
+  margin-top: 0
+}

@@ -44,7 +44,8 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <h1>Generative UI Demo</h1>
+        <h1>GPT - Generative UI Demo</h1>
+        <p>Powered by <a href='https://adaptivecards.io'>Adaptive Cards</a></p>
       </header>
       <div className="App-Generator">
         <form onSubmit={handleGenerateAppSubmit}>
