@@ -3,6 +3,8 @@ GEN-UX is a project that showcases how GPT can be used to create a multi-screen 
 
 Adaptive Cards are written in JSON format and can adjust to different platforms. Adaptive Cards make it easy to design lightweight UIs for different frameworks and platforms. SDKs are available for JavaScript, iOS, and Android to render Adaptive Card JSONs. Large language models like GPT have knowledge of Adaptive Cards because they have been open-source for several years.
 
+[Watch demo video on YouTube](https://youtu.be/DLKaPbCXrMs)
+
 ## List app - GEN-UX Demo
 ![ezgif com-video-to-gif](https://user-images.githubusercontent.com/4107912/227872778-cfd9fd0a-411b-47be-a9e3-be1f9a97d8a8.gif)
 
