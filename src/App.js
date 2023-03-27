@@ -43,6 +43,9 @@ function App() {
 
   return (
     <div className="App">
+      <header className="App-header">
+        <h1>Generative UI Demo</h1>
+      </header>
       <div className="App-Generator">
         <form onSubmit={handleGenerateAppSubmit}>
           <label>
@@ -55,7 +58,7 @@ function App() {
   
       {uiDescription && appDescription && <h1>{appDescription} app - GPT</h1>}
 
-      {isLoading && <div className='generatingLabel'>Generating...</div>}
+      {isLoading && <div className='generatingLabel'>✨ Generating, please wait...</div>}
 
       {nextUI && (
         <div>
@@ -79,10 +82,10 @@ function App() {
       )}
 
       {memory && 
-        <div className='memory'>
+        <div>
           <h2>Memory: </h2>
           <pre>{JSON.stringify(memory, null, 2)}</pre>
-      </div>
+        </div>
       }
       </div>
   );
