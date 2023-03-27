@@ -1,36 +1,77 @@
 import React, { useState } from 'react';
 import './App.css';
 import AdaptiveCardRenderer from './components/AdaptiveCardRenderer';
+import generateAdaptiveUI from './helpers/GenerateAdaptiveUI';
+
+const openai_api_key = process.env.REACT_APP_OPENAI_API_KEY || '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';
 
 function App() {
-  const [cardDescription, setCardDescription] = useState('');
-  const [showAdaptiveCard, setShowAdaptiveCard] = useState(false);
+  const [appDescription, setAppDescription] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+  const [uiDescription, setUIDescription] = useState(null);
 
-  const handleCardAction = (action) => {
+  const handleCardAction = async (action) => {
     console.log(action);
-    alert('You clicked ' + action.title + ' with data ' + JSON.stringify(action.data));
+    setIsLoading(true);
+
+    // Call GenerateAdaptiveUI again with the action data
+    const response = await generateAdaptiveUI(openai_api_key, appDescription, action, uiDescription);
+
+    setUIDescription(response);
+
+    setIsLoading(false);
   };
 
-  const handleSubmit = (event) => {
+  const handleGenerateAppSubmit = async (event) => {
     event.preventDefault();
-    setShowAdaptiveCard(true);
+
+    setIsLoading(true);
+
+    // Call GenerateAdaptiveUI to get the uiDescription
+    const response = await generateAdaptiveUI(openai_api_key, appDescription);
+
+    setUIDescription(response);
+
+    setIsLoading(false);
   };
 
-  const handleCardDescriptionChange = (event) => {
-    setCardDescription(event.target.value);
+  const handleAppDescriptionChange = (event) => {
+    setAppDescription(event.target.value);
   };
+
+  const { nextUI, currentStateUI, globalActions } = uiDescription || {};
 
   return (
     <div className="App">
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleGenerateAppSubmit}>
         <label>
-          Enter Card Description:
-          <input type="text" value={cardDescription} onChange={handleCardDescriptionChange} />
+          Enter App Description:
+          <input type="text" value={appDescription} onChange={handleAppDescriptionChange} />
         </label>
         <input type="submit" value="Submit" />
       </form>
-      {showAdaptiveCard && (
-        <AdaptiveCardRenderer cardDescription={cardDescription} onExecuteAction={handleCardAction} />
+
+      {isLoading && <div>Generating...</div>}
+
+      {nextUI && (
+        <div>
+          <h2>Next step: </h2>
+          <AdaptiveCardRenderer cardData={nextUI} onExecuteAction={handleCardAction} />
+        </div>
+      )}
+
+      {currentStateUI && (
+        <div>
+          <h2>Current state: </h2>
+          <AdaptiveCardRenderer cardData={currentStateUI} />
+        </div>
+      )}
+
+      {globalActions && (
+        <div>
+          <h2>Global actions: </h2>
+          <AdaptiveCardRenderer cardData={globalActions} onExecuteAction={handleCardAction} />
+        </div>
       )}
     </div>
   );

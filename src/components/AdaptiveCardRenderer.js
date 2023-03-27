@@ -3,31 +3,28 @@ import { AdaptiveCard, HostConfig } from 'adaptivecards';
 import generateAdaptiveCard from '../helpers/AdaptiveCardGenerator';
 
 function AdaptiveCardRenderer(props) {
-  const { cardDescription, onExecuteAction } = props;
+  const { cardDescription, cardData, onExecuteAction } = props;
   const cardRef = useRef();
-  const [cardData, setCardData] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [localCardData, setLocalCardData] = useState(null);
 
   useEffect(() => {
+    if (!cardData && cardDescription) {
+      const getCardData = async () => {
+        setIsLoading(true);
+        const data = await generateAdaptiveCard(cardDescription);
+        setLocalCardData(data);
+        setIsLoading(false);
+      };
 
-    if (!cardDescription) {
-      return;
+      getCardData();
     }
-
-    const getCardData = async () => {
-      setIsLoading(true);
-      const data = await generateAdaptiveCard(cardDescription);
-      setCardData(data);
-      setIsLoading(false);
-    };
-
-    getCardData();
-    
-  }, [cardDescription]);
+  }, [cardData, cardDescription]);
 
   useEffect(() => {
-    if (cardData) {
+    if (cardData || localCardData) {
       const adaptiveCard = new AdaptiveCard();
+      const data = cardData || localCardData;
 
       adaptiveCard.onExecuteAction = function(action) {
         if (onExecuteAction) {
@@ -35,7 +32,7 @@ function AdaptiveCardRenderer(props) {
         }
       };
 
-      adaptiveCard.parse(cardData);
+      adaptiveCard.parse(data);
 
       adaptiveCard.hostConfig = new HostConfig({
         fontFamily: 'Segoe UI, Helvetica Neue, sans-serif',
@@ -50,13 +47,18 @@ function AdaptiveCardRenderer(props) {
       });
 
       const renderedCard = adaptiveCard.render();
+
+      if (cardRef.current.hasChildNodes()) {
+        cardRef.current.removeChild(cardRef.current.firstChild);
+      }
+      
       cardRef.current.appendChild(renderedCard);
     }
-  }, [cardData, onExecuteAction]);
+  }, [cardData, localCardData, onExecuteAction]);
 
   return (
     <>
-      {isLoading && <div>Loading...</div>}
+      {isLoading && <div>Generating card...</div>}
       <div ref={cardRef} />
     </>
   );

@@ -5,9 +5,12 @@ const openai_api = new openai(openai_api_key);
 const generateAdaptiveCard = async (cardDescription, retries = 3) => {
   let error = null;
 
-  const prompt = `As an Adaptive Card Generator AI, I need to create an Adaptive Card to: <desc>${cardDescription}</desc>${
+  const prompt = `As an Adaptive Card Generator AI, I need to create an Adaptive Card to: <desc>${cardDescription}</desc>
+  ${
     retries > 0 && error ? ` An error occurred earlier: ${error.message}. Please retry.` : ''
-  }` + '\n\nAdaptive Card JSON:';
+  }
+  
+  Adaptive Card JSON:`;
 
   let cardData = null;
 
