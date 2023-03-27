@@ -3,7 +3,7 @@ import './App.css';
 import AdaptiveCardRenderer from './components/AdaptiveCardRenderer';
 import generateAdaptiveUI from './helpers/GenerateAdaptiveUI';
 
-const openai_api_key = process.env.REACT_APP_OPENAI_API_KEY || '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';
+const openai_api_key = process.env.REACT_APP_OPENAI_API_KEY;
 
 function App() {
   const [appDescription, setAppDescription] = useState('');
