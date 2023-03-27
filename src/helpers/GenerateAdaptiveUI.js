@@ -22,7 +22,7 @@ const generateAdaptiveUI = async (openAIApiKey, appDescription, userAction, prev
     /* memory: JSON array representing what is in your memory */
     "memory": [],
 
-    /* nextUI: Adaptive Card JSON to allow user to take the next step */
+    /* nextUI: Adaptive Card JSON to allow user to take the next step. Must provide Submit action. */
     "nextUI": {},
     "nextUISummary": "Plain text description of the Adaptive Card JSON in nextUI",
 
@@ -30,7 +30,7 @@ const generateAdaptiveUI = async (openAIApiKey, appDescription, userAction, prev
     "currentStateUI": {},
     "currentStateUISummary": "Plain text description of the Adaptive Card JSON in currentStateUI",
 
-    /* globalActions: Adaptive Card JSON to show actions that are always applicable */
+    /* globalActions: Adaptive Card JSON to show actions that are always applicable. Must provide Submit action. */
     "globalActions": {},
     "globalActionsSummary": "Plain text description of the Adaptive Card JSON in globalActions"
   }
@@ -38,6 +38,7 @@ const generateAdaptiveUI = async (openAIApiKey, appDescription, userAction, prev
   Note:
   - Adaptive Card JSONs in nextUI and globalActions must have a submit action to allow user to take action.
   - The value property of each element should contain the corresponding title of element.
+  - Ensure all input controls have labels.
 
   ${retries > 0 && error ? ` An error occurred earlier: ${error.message}. Please retry.` : ''}
 
