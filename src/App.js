@@ -43,13 +43,17 @@ function App() {
 
   return (
     <div className="App">
-      <form onSubmit={handleGenerateAppSubmit}>
-        <label>
-          Enter App Description:
-          <input type="text" value={appDescription} onChange={handleAppDescriptionChange} />
-        </label>
-        <input type="submit" value="Submit" />
-      </form>
+      <div className="App-Generator">
+        <form onSubmit={handleGenerateAppSubmit}>
+          <label>
+            Enter app description:
+            <input type="text" value={appDescription} onChange={handleAppDescriptionChange} />
+          </label>
+          <input type="submit" value="Submit" />
+        </form>
+      </div>
+  
+      {uiDescription && appDescription && <h1>{appDescription} app - GPT</h1>}
 
       {isLoading && <div>Generating...</div>}
 

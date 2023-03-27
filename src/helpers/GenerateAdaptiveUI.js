@@ -10,7 +10,7 @@ const generateAdaptiveUI = async (openAIApiKey, appDescription, userAction, prev
   const prompt = `You are a ${appDescription} app AI.
 
   Your current memory:
-  ${prevUIDescription?.currentMemory?.length > 0 ? JSON.stringify(prevUIDescription?.currentMemory) : "[]"}
+  ${prevUIDescription?.memory?.length > 0 ? JSON.stringify(prevUIDescription?.memory) : "[]"}
 
   Your current user interface shown to user:
   - nextUI: ${prevUIDescription?.nextUISummary}
