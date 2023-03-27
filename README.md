@@ -12,7 +12,7 @@ Adaptive Cards are written in JSON format and can adjust to different platforms.
 ![ezgif com-video-to-gif (1)](https://user-images.githubusercontent.com/4107912/227877647-701df5f2-b3ed-4970-a2fa-bedbcd632f26.gif)
 
 ## High-level flow
-![mermaid-diagram-2023-03-27-014337](https://user-images.githubusercontent.com/4107912/227889716-b4649a8c-b193-43db-acfb-a10069dfcfa5.svg)
+![mermaid-diagram-2023-03-27-020734](https://user-images.githubusercontent.com/4107912/227895899-0b619bfc-3bbf-47c9-8e5e-4a0c6c4875d2.svg)
 
 ## Running locally
 - Update the OpenAI key in `.env.sample` file and cp it to `.env`.
